@@ -11,6 +11,7 @@ const GuessedLine = ({ guess, correctWord }) => {
     for (var i = 0; i < g.length; i++) {
       blocks.push(
       <GuessedBlock 
+        key={i}
         letter={g.charAt(i)}
         correctLetter={c.charAt(i)}
         correctWord={c}

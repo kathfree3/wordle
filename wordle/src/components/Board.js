@@ -11,6 +11,7 @@ import { validGuess } from '../../functions.js'
 const Board = ({ answer }) => {
   // current line number
   const [lineNum, setLineNum] = useState(0)
+  const [gameOver, setGameOver] = useState(false)
 
   // current value of what you are guessing
   const [value, setValue] = useState('')
@@ -52,18 +53,26 @@ const Board = ({ answer }) => {
         setLines[lineNum](newMap)
         setLineNum(lineNum + 1)
         setValue('')
+        // now check if that was the right answer
+        if (value === answer) {
+          setGameOver(true)
+        }
       } else {
-        alert('not a vlaid guess')
+        $("#mydiv").show()
       }
-      
-    } else {
-      //console.log("not a complete word")
+      if (lineNum === 5) {
+        setGameOver(true)
+      }
     }
   }
 
 
   // use effect
   useEffect(() => {
+    setTimeout(() => {  
+      $('#mydiv').fadeOut('slow');  
+    }, 3000);
+
       window.addEventListener("keydown", handleUserKeyPress);
       return () => {
           window.removeEventListener("keydown", handleUserKeyPress);
@@ -74,22 +83,23 @@ const Board = ({ answer }) => {
   const displayLines =  lines.map(({guessed, guess}, i) => {
     // line that we don't need to worry about
     if (i > lineNum) {
-      return ( <EmptyLine /> )
+      return ( <EmptyLine key={i}/> )
     }
 
     // current line... should take into account the guesses
     if (i == lineNum) {
-      return ( <CurrentLine value={value}/>)
+      return ( <CurrentLine value={value} key={i}/>)
     }
 
     // already guessed
     if (guessed) {
-      return ( <GuessedLine guess={guess} correctWord={answer} /> )
+      return ( <GuessedLine key={i} guess={guess} correctWord={answer} /> )
     }
   })
 
   return (
     <>
+      <p id='mydiv' hidden> Sorry that word is not in our list</p>
       {displayLines}
     </>
   )
@@ -97,10 +107,3 @@ const Board = ({ answer }) => {
 
 export default Board
 
-const Wrapper = s.div`
-  margin: auto;
-  padding: 10px;
-  width: 70%;
-  display: flex;
-  justify-content: center;
-`
