@@ -44,7 +44,7 @@ export const validGuess = guess => {
 }
 
 export const generateWord = () => {
-  //const int = Math.floor(Math.random() * 5756);
+  const int = Math.floor(Math.random() * 5756);
   //return GUESS_WORDS[int]
   return "HELLO"
 }

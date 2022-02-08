@@ -16,6 +16,20 @@ body {
   text-align: center;
 }
 
+/*Modal styles */
+.modal-content {
+  background-color: #121213 !important;
+  color: #cccccc !important;
+}
+
+.modal-body {
+  color: #cccccc !important;
+}
+
+.modal-header .btn-close {
+  color: #cccccc !important;
+  background-color: #cccccc !important;
+}
 
 /*keyboard styles */
 .keyboard .correctKey {

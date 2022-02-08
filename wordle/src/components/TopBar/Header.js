@@ -1,10 +1,13 @@
 
 import s from 'styled-components'
 
+import HowToPlay from './HowToPlay'
+
 const Header = () => {
   return (
     <Wrapper>
-      <h1> WORDLE </h1>
+      <H>WORDLE</H>
+      <HowToPlay />
     </Wrapper>
   )
 }
@@ -12,8 +15,13 @@ const Header = () => {
 export default Header
 
 const Wrapper = s.div`
-  margin: auto;
-  width: 70%;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
 `
+
+
+const H = s.h1`
+  width: 70%;
+`
+

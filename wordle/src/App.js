@@ -1,5 +1,5 @@
 
-import Header from "./components/Header"
+import Header from "./components/TopBar/Header"
 import Board from "./components/Board"
 import { useEffect, useState } from "react"
 

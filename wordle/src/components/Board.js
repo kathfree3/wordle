@@ -34,14 +34,16 @@ const Board = ({ answer }) => {
 
   // event handlre for key pressed
   const handleUserKeyPress = event => {
-    const { key } = event
-    if (key === 'Backspace') {
-      setValue(prevUserText => prevUserText.slice(0,-1))
-    } else if (key === 'Enter') {
-      enterPressed()
-    } else {
-      if (key.length === 1 && /^[a-zA-Z]+$/.test(key)) {
-        setValue(prevUserText => addLetter(prevUserText, key.toUpperCase()))
+    if (!gameOver) {
+      const { key } = event
+      if (key === 'Backspace') {
+        setValue(prevUserText => prevUserText.slice(0,-1))
+      } else if (key === 'Enter') {
+        enterPressed()
+      } else {
+        if (key.length === 1 && /^[a-zA-Z]+$/.test(key)) {
+          setValue(prevUserText => addLetter(prevUserText, key.toUpperCase()))
+        }
       }
     }
   }
@@ -62,6 +64,12 @@ const Board = ({ answer }) => {
         // now check if that was the right answer
         if (value === answer) {
           setGameOver(true)
+          document.removeEventListener("keydown", handleUserKeyPress);
+        }
+          //clean up
+        if (lineNum === 5) {
+          setGameOver(true)
+          window.removeEventListener("keydown", handleUserKeyPress);
         }
       } else {
         $("#mydiv").fadeIn("slow");
@@ -70,11 +78,6 @@ const Board = ({ answer }) => {
           $(`.block`).removeClass('invalid')
           $('#mydiv').fadeOut('slow');
         }, 1400);
-      }
-      //clean up
-      if (lineNum === 5) {
-        setGameOver(true)
-        window.removeEventListener("keydown", handleUserKeyPress, true);
       }
     }
   }

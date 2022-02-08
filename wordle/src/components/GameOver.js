@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import s from 'styled-components'
 
-const GameWon = ({ answer, won }) => {
+const GameOver = ({ answer, won }) => {
   const [show, setShow] = useState(true);
 
   const handleClose = () => setShow(false);
@@ -13,33 +13,21 @@ const GameWon = ({ answer, won }) => {
   const link= `https://www.marvel.com/search?limit=20&query=${answer}&offset=0`
 
   return (
-    <div>
+    <Wrapper>
       SOLUTION:
       <p>
         <Link href={link}> {answer} </Link>
       </p>
       <ReadDef href={link}> (read definition here) </ReadDef>
-    </div>
+    </Wrapper>
   )
 }
 
-export default GameWon
+export default GameOver
 
-/*Modal styles */
-// .modal-content {
-//   background-color: #000 !important;
-//   text-align: center;
-// }
-
-// .modal-body {
-//   color: #cccccc !important;
-  
-// }
-
-// .special-modal a {
-
-// }
-
+const Wrapper = s.div`
+  margin:1rem;
+`
 const Link = s.a`
   text-decoration: none;
   color: 	#57afdb;
