@@ -1,16 +1,20 @@
 
 import Header from "./components/Header"
 import Board from "./components/Board"
+import { useEffect, useState } from "react"
 
-import { COLORS } from '../functions.js'
-import { useState } from "react"
+import {generateWord} from './helper'
 
 const App = () => {
+  const [answer, setAnswer] = useState('xxxx')
+  useEffect(() => {
+    setAnswer(generateWord())
+  }, []);
 
   return (
     <>
       <Header />
-      <Board answer='HELLO' />
+      <Board answer={answer} />
     </>
   )
 }

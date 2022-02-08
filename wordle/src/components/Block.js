@@ -1,20 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import s from 'styled-components'
+// style imports
+import { BlockWrapper } from '../helper.js'
 
-import { COLORS } from '../../functions.js'
-import { BlockWrapper } from '../StyledComponents.js'
-
-
-const Block = ({ letter }) => {
-  
-  return (
-    <Wrapper> {letter} </Wrapper>
-  )
-}
+const Block = ({ letter }) => <BlockWrapper> {letter} </BlockWrapper>
 
 export default Block
-
-const Wrapper = s(BlockWrapper)`
-  background-color: ${COLORS.darkgrey};
-`

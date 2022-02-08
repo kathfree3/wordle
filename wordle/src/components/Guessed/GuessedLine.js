@@ -1,7 +1,8 @@
 import s from 'styled-components'
 import GuessedBlock from './GuessedBlock'
 
-import { LineWrapper } from '../../StyledComponents.js'
+import { LineWrapper } from '../../helper.js'
+
 
 
 const GuessedLine = ({ guess, correctWord }) => {

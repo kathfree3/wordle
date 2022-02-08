@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
+// style imports
 import s from 'styled-components'
-
-import { COLORS } from '../../../functions.js'
-import { BlockWrapper } from '../../StyledComponents.js'
-
+import { BlockWrapper, COLORS } from '../../helper.js'
 
 const GuessedBlock = ({letter, correctLetter, correctWord }) => {
   const [color, setColor] = useState(COLORS.grey)
@@ -16,10 +14,13 @@ const GuessedBlock = ({letter, correctLetter, correctWord }) => {
 
   const getColor = (l, cl, w) => {
     if (l === cl) {
+      $(`#keyX${l}`).addClass('correctKey')
       return COLORS.green
     } else if (correctWord.includes(letter)) {
+      $(`#keyX${l}`).addClass('yellowKey')
       return COLORS.yellow
     } else {
+      $(`#keyX${l}`).addClass('wrongKey')
       return COLORS.grey
     }
   }

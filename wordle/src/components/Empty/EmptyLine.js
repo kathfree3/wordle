@@ -1,7 +1,7 @@
-import s from 'styled-components'
 import EmptyBlock from './EmptyBlock'
 
-import { LineWrapper } from '../../StyledComponents.js'
+// style imports
+import { LineWrapper } from '../../helper.js'
 
 
 const EmptyLine = () => {

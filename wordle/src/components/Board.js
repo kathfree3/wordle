@@ -6,7 +6,11 @@ import GuessedLine from './Guessed/GuessedLine'
 import EmptyLine from './Empty/EmptyLine'
 import CurrentLine from './CurrentLine'
 
-import { validGuess } from '../../functions.js'
+import GameOver from './GameOver'
+
+import { validGuess } from '../helper.js'
+
+import Keyboard from './Keyboard'
 
 const Board = ({ answer }) => {
   // current line number
@@ -30,6 +34,7 @@ const Board = ({ answer }) => {
 
   // event handlre for key pressed
   const handleUserKeyPress = event => {
+    $('#mydiv').fadeOut('slow');
     const { key } = event
     if (key === 'Backspace') {
       setValue(prevUserText => prevUserText.slice(0,-1))
@@ -58,7 +63,7 @@ const Board = ({ answer }) => {
           setGameOver(true)
         }
       } else {
-        $("#mydiv").show()
+        $("#mydiv").fadeIn("slow");
       }
       if (lineNum === 5) {
         setGameOver(true)
@@ -99,11 +104,21 @@ const Board = ({ answer }) => {
 
   return (
     <>
-      <p id='mydiv' hidden> Sorry that word is not in our list</p>
+      <Wrapper>
+        <p id='mydiv' hidden> Sorry, that word is not in our list!</p>
+      </Wrapper>
       {displayLines}
+      <Keyboard />
+      {gameOver && <GameOver answer={answer}/>}
     </>
   )
 }
 
 export default Board
 
+const Wrapper = s.div`
+  display:block;
+  min-height: 3rem;
+  overflow: hidden;
+  max-height: 4rem;
+`

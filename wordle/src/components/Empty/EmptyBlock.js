@@ -1,20 +1,12 @@
 import React from 'react'
 
+// style stuff
 import s from 'styled-components'
+import { BlockWrapper, COLORS } from '../../helper.js'
 
-import { BlockWrapper } from '../../StyledComponents.js'
-
-import { COLORS } from '../../../functions.js'
-
-
-const EmptyBlock = () => {
-  return (
-    <Wrapper> {' '} </Wrapper>
-  )
-}
+const EmptyBlock = () => <Wrapper> {' '} </Wrapper>
 
 export default EmptyBlock
-
 
 const Wrapper = s(BlockWrapper)`
   background-color: ${COLORS.darkgrey};

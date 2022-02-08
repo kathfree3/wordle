@@ -13,7 +13,6 @@ export default Header
 
 const Wrapper = s.div`
   margin: auto;
-  padding: 10px;
   width: 70%;
   display: flex;
   justify-content: center;

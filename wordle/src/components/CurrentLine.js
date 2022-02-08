@@ -1,10 +1,5 @@
-
-import { useState } from 'react'
-import s from 'styled-components'
 import Block from './Block'
-
-import { LineWrapper } from '../StyledComponents.js'
-
+import { LineWrapper } from '../helper.js'
 
 const CurrentLine = ({value }) => {
   var word = value
@@ -17,8 +12,8 @@ const CurrentLine = ({value }) => {
 
   return (
     <LineWrapper>
-        {[...word].map(c => 
-          <Block letter={c}/>
+        {[...word].map((c, i) => 
+          <Block key={`block${i}`} letter={c}/>
         )}
     </LineWrapper>
   )
