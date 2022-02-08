@@ -16,6 +16,7 @@ const GuessedLine = ({ guess, correctWord }) => {
         letter={g.charAt(i)}
         correctLetter={c.charAt(i)}
         correctWord={c}
+        index={i}
       />)
     }
     return blocks

@@ -8,7 +8,8 @@ export const COLORS = {
   yellow: "#b59f3b",
   grey: "#3a3a3c",
   lightgrey: "#818384",
-  darkgrey: "#121213"
+  darkgrey: "#121213",
+  red: "#b5201b",
 }
 
 // style stuff
@@ -23,6 +24,10 @@ export const BlockWrapper = s.div`
   color: white;
   min-width: 2rem;
   min-height: 2rem;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 `
 
 export const LineWrapper = s.div`
@@ -39,6 +44,7 @@ export const validGuess = guess => {
 }
 
 export const generateWord = () => {
-  const int = Math.floor(Math.random() * 5756);
-  return GUESS_WORDS[int]
+  //const int = Math.floor(Math.random() * 5756);
+  //return GUESS_WORDS[int]
+  return "HELLO"
 }

@@ -34,14 +34,15 @@ const Board = ({ answer }) => {
 
   // event handlre for key pressed
   const handleUserKeyPress = event => {
-    $('#mydiv').fadeOut('slow');
     const { key } = event
     if (key === 'Backspace') {
       setValue(prevUserText => prevUserText.slice(0,-1))
     } else if (key === 'Enter') {
       enterPressed()
     } else {
-      setValue(prevUserText => addLetter(prevUserText, key.toUpperCase()))
+      if (key.length === 1 && /^[a-zA-Z]+$/.test(key)) {
+        setValue(prevUserText => addLetter(prevUserText, key.toUpperCase()))
+      }
     }
   }
 
@@ -64,24 +65,28 @@ const Board = ({ answer }) => {
         }
       } else {
         $("#mydiv").fadeIn("slow");
+        $(`.block`).addClass('invalid')
+        setTimeout(() => {
+          $(`.block`).removeClass('invalid')
+          $('#mydiv').fadeOut('slow');
+        }, 1400);
       }
+      //clean up
       if (lineNum === 5) {
         setGameOver(true)
+        window.removeEventListener("keydown", handleUserKeyPress, true);
       }
     }
   }
 
 
-  // use effect
   useEffect(() => {
-    setTimeout(() => {  
-      $('#mydiv').fadeOut('slow');  
-    }, 3000);
-
-      window.addEventListener("keydown", handleUserKeyPress);
-      return () => {
-          window.removeEventListener("keydown", handleUserKeyPress);
-      };
+    // hide it at first
+    $('#mydiv').hide(); 
+    window.addEventListener("keydown", handleUserKeyPress);
+    return () => {
+        window.removeEventListener("keydown", handleUserKeyPress);
+    };
   }, [handleUserKeyPress]);
 
 
@@ -90,12 +95,10 @@ const Board = ({ answer }) => {
     if (i > lineNum) {
       return ( <EmptyLine key={i}/> )
     }
-
     // current line... should take into account the guesses
     if (i == lineNum) {
       return ( <CurrentLine value={value} key={i}/>)
     }
-
     // already guessed
     if (guessed) {
       return ( <GuessedLine key={i} guess={guess} correctWord={answer} /> )
@@ -105,10 +108,10 @@ const Board = ({ answer }) => {
   return (
     <>
       <Wrapper>
-        <p id='mydiv' hidden> Sorry, that word is not in our list!</p>
+        <p id='mydiv'> Sorry, that word is not in our list!</p>
       </Wrapper>
       {displayLines}
-      <Keyboard />
+      {!gameOver && <Keyboard />}
       {gameOver && <GameOver answer={answer}/>}
     </>
   )
@@ -117,8 +120,9 @@ const Board = ({ answer }) => {
 export default Board
 
 const Wrapper = s.div`
-  display:block;
+  display: block;
   min-height: 3rem;
   overflow: hidden;
   max-height: 4rem;
+  font-size: .7rem;
 `

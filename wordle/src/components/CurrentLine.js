@@ -1,7 +1,7 @@
 import Block from './Block'
 import { LineWrapper } from '../helper.js'
 
-const CurrentLine = ({value }) => {
+const CurrentLine = ({ value }) => {
   var word = value
   if (value.length < 5) {
     const needed = 5 - value.length

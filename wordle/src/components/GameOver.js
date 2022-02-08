@@ -2,9 +2,6 @@ import React, { useState } from 'react'
 
 import s from 'styled-components'
 
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal';
-
 const GameWon = ({ answer, won }) => {
   const [show, setShow] = useState(true);
 
@@ -16,24 +13,39 @@ const GameWon = ({ answer, won }) => {
   const link= `https://www.marvel.com/search?limit=20&query=${answer}&offset=0`
 
   return (
-    <>
-      <Modal className="special-modal"
-        show={show}
-        onHide={handleClose}
-        centered
-        backdrop="static"
-        >
-        <Modal.Body>
-          SOLUTION:
-          <p><a href={link}> {answer} </a></p>
-          <p className='read-def' ><a href={link}> (read definition here) </a></p>
-          
-        </Modal.Body>
-        <Modal.Footer>
-        </Modal.Footer>
-      </Modal>
-    </>
+    <div>
+      SOLUTION:
+      <p>
+        <Link href={link}> {answer} </Link>
+      </p>
+      <ReadDef href={link}> (read definition here) </ReadDef>
+    </div>
   )
 }
 
 export default GameWon
+
+/*Modal styles */
+// .modal-content {
+//   background-color: #000 !important;
+//   text-align: center;
+// }
+
+// .modal-body {
+//   color: #cccccc !important;
+  
+// }
+
+// .special-modal a {
+
+// }
+
+const Link = s.a`
+  text-decoration: none;
+  color: 	#57afdb;
+`
+const ReadDef = s.a`
+    text-decoration: none;
+    color: #676060 !important;
+    font-size: 14px !important;
+`
