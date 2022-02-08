@@ -1,4 +1,4 @@
-import GUESS_WORDS from '../../updated_words'
+import GUESS_WORDS from './updated_words'
 
 // style imports
 import s from 'styled-components'
