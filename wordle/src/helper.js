@@ -15,16 +15,15 @@ export const COLORS = {
 
 // style stuff
 export const BlockWrapper = s.div`
-  padding: 0.3rem!important;
   font-weight: bold;
   margin: 0.1rem;
-  display: block;
+  display: flex;
+  font-size: 2rem;
   justify-content: center;
-  text-align: center;
+  align-items: center;
   border: 1px solid ${COLORS.grey};
   color: white;
-  min-width: 2rem;
-  min-height: 2rem;
+  width: 10%;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -35,6 +34,7 @@ export const LineWrapper = s.div`
   margin: auto;
   display: flex;
   justify-content: center;
+  width: 50%;
 `
 
 

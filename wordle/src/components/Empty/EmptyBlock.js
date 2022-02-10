@@ -4,7 +4,7 @@ import React from 'react'
 import s from 'styled-components'
 import { BlockWrapper, COLORS } from '../../helper.js'
 
-const EmptyBlock = () => <Wrapper> {' '} </Wrapper>
+const EmptyBlock = () => <Wrapper className='square'> {' '} </Wrapper>
 
 export default EmptyBlock
 

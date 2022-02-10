@@ -32,24 +32,26 @@ const Keyboard = () => {
         )}
       </KeyRow>
       <KeyRow className='keyrow'>
+        <Space />
         {row1.map(c => 
           <Button key={c} id={`keyX${c.toUpperCase()}`}onClick={() => letterClicked(c)}>
             {c.toUpperCase()}
           </Button>
         )}
+        <Space />
       </KeyRow>
       <KeyRow className='keyrow'>
-        <Button key='keyXEnter' id='keyXEnter' onClick={() => enterClicked()}>
+        <SpecialButton key='keyXEnter' id='keyXEnter' onClick={() => enterClicked()}>
           ENTER
-        </Button>
+        </SpecialButton>
         {row2.map(c => 
           <Button key={c} id={`keyX${c.toUpperCase()}`} onClick={() => letterClicked(c)}>
             {c.toUpperCase()}
           </Button>
         )}
-        <Button key='keyXDel' id='keyXDel' onClick={() => deleteClicked()}>
+        <SpecialButton key='keyXDel' id='keyXDel' onClick={() => deleteClicked()}>
           DEL
-        </Button>
+        </SpecialButton>
       </KeyRow>
     </KeyboardWrapper>
   )
@@ -59,29 +61,38 @@ export default Keyboard
 
 const Button = s.button`
   background-color: #818384 !important;
-  color: white;
-  margin: 0.1rem;
-  border: none; 
-  min-width: 1rem;
-  min-height: 1rem;
-  border-radius: 4px;
-  font-size: .7rem;
-  padding: 0.5rem;
   font-weight: bold;
+  color: white;
+  border: none; 
+  padding: 0;
+  margin: 0 6px 0 0;
+  height: 58px;
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 `
 
+const SpecialButton = s(Button)`
+  flex: 1.5;
+`
 const KeyboardWrapper = s.div`
-  display: flex;
-  flex-direction: column;
+  width: 40%;
+  display: block;
   margin: 3rem;
 `
 
 const KeyRow = s.div`
   display: flex;
   width: 100%;
+  margin: 0 auto 8px;
   touch-action: manipulation;
   justify-content: center;
+`
+
+const Space = s.div`
+  flex: 0.5;
+  display: block;
 `

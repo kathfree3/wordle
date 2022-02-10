@@ -113,7 +113,9 @@ const Board = ({ answer }) => {
       <Wrapper>
         <p id='mydiv'> Sorry, that word is not in our list!</p>
       </Wrapper>
+      <BoardWrapper>
       {displayLines}
+      </BoardWrapper>
       {!gameOver && <Keyboard />}
       {gameOver && <GameOver answer={answer}/>}
     </>
@@ -128,4 +130,10 @@ const Wrapper = s.div`
   overflow: hidden;
   max-height: 4rem;
   font-size: .7rem;
+`
+
+const BoardWrapper = s.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `

@@ -6,15 +6,27 @@
 
 html {
   background-color: #121213;
+  height: 100%;
 }
 
 body {
   background-color: #121213 !important;
   color: white !important;
-  padding: 40px !important;
+  padding: 3rem !important;
   font-family: Arial;
   text-align: center;
 }
+
+/* tile stuff */
+.square:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+.invalid {
+  background-color: #872c27 !important;
+}
+
 
 /*Modal styles */
 .modal-content {
@@ -42,9 +54,4 @@ body {
 
 .keyboard .wrongKey {
   background-color: #3a3a3c !important;
-}
-
-
-.invalid {
-  background-color: #872c27 !important;
 }

@@ -55,7 +55,7 @@ const GuessedBlock = ({
 
 
   return (
-    <Wrapper theme={{c: color}}> {letter} </Wrapper>
+    <Wrapper className='square' theme={{c: color}}> {letter} </Wrapper>
   )
 }
 
