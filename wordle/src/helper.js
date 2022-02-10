@@ -1,4 +1,5 @@
 import GUESS_WORDS from './updated_words'
+import ANSWER_WORDS from './answer_words'
 
 // style imports
 import s from 'styled-components'
@@ -40,11 +41,11 @@ export const LineWrapper = s.div`
 
 // guess stuff
 export const validGuess = guess => {
-  return GUESS_WORDS.includes(guess)
+  return ANSWER_WORDS.includes(guess) || GUESS_WORDS.includes(guess)
 }
 
 export const generateWord = () => {
-  const int = Math.floor(Math.random() * 5756);
-  //return GUESS_WORDS[int]
-  return "HELLO"
+  const int = Math.floor(Math.random() * ANSWER_WORDS.length);
+  return ANSWER_WORDS[int]
+  //return "LOLLY"
 }

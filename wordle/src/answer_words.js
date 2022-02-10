@@ -1,4 +1,4 @@
-export const ANSWER_WORDS = [ "ABYSS",
+const ANSWER_WORDS = [ "ABYSS",
 "AGENT",
 "ALIEN",
 "ARNIM",
@@ -81,3 +81,5 @@ export const ANSWER_WORDS = [ "ABYSS",
 "WKABI",
 "YONDU",
 ]
+
+export default ANSWER_WORDS
