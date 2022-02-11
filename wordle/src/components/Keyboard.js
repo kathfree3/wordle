@@ -66,7 +66,7 @@ const Button = s.button`
   border: none; 
   padding: 0;
   margin: 0 6px 0 0;
-  height: 58px;
+  height: 3rem;
   border-radius: 4px;
   cursor: pointer;
   flex: 1;
