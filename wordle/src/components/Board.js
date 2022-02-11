@@ -12,7 +12,7 @@ import { validGuess } from '../helper.js'
 
 import Keyboard from './Keyboard'
 
-const Board = ({ answer }) => {
+const Board = ({ answer, allowedToSolve }) => {
   // current line number
   const [lineNum, setLineNum] = useState(0)
   const [gameOver, setGameOver] = useState(false)
@@ -117,7 +117,7 @@ const Board = ({ answer }) => {
       {displayLines}
       </BoardWrapper>
       {!gameOver && <Keyboard />}
-      {gameOver && <GameOver answer={answer}/>}
+      {(!allowedToSolve || gameOver) && <GameOver answer={answer}/>}
     </>
   )
 }
@@ -129,7 +129,7 @@ const Wrapper = s.div`
   min-height: 3rem;
   overflow: hidden;
   max-height: 4rem;
-  font-size: .7rem;
+  font-size: 1.5rem;
 `
 
 const BoardWrapper = s.div`

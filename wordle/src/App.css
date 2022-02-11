@@ -43,6 +43,18 @@ body {
   background-color: #cccccc !important;
 }
 
+.modal-header {
+  border-bottom: 0 none;
+}
+
+.modal-footer {
+  border-top: 0 none;
+}
+
+.modal-content p {
+  text-align: left;
+  font-size: 1.2rem;
+}
 /*keyboard styles */
 .keyboard .correctKey {
   background-color: #538d4e !important;
