@@ -49,9 +49,7 @@ const Board = ({ answer, allowedToSolve }) => {
   }
 
   // helper for adding a letter to a word
-  const addLetter = (curr, newKey) => {
-    return curr.length !== 5 ? curr + newKey : curr
-  }
+  const addLetter = (curr, newKey) => curr.length !== 5 ? curr + newKey : curr
 
   const enterPressed = () => {
     if (value.length === 5) {
@@ -113,11 +111,12 @@ const Board = ({ answer, allowedToSolve }) => {
       <Wrapper>
         <p id='mydiv'> Sorry, that word is not in our list!</p>
       </Wrapper>
-      <BoardWrapper>
-      {displayLines}
+      <BoardWrapper className="board">
+        {displayLines}
       </BoardWrapper>
       {!gameOver && <Keyboard />}
-      {(!allowedToSolve || gameOver) && <GameOver answer={answer}/>}
+      {(!allowedToSolve || gameOver) && <GameOver lineNum={lineNum} answer={answer}/>}
+
     </>
   )
 }

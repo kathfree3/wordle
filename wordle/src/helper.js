@@ -49,3 +49,31 @@ export const generateWord = () => {
   return ANSWER_WORDS[int]
   //return "LOLLY"
 }
+
+// sharing the message
+const YELLOW = "🟨"
+const GREEN = "🟩"
+const BLACK = "⬛️"
+
+const yellow_color = 'rgb(181, 159, 59)'
+const grey_color = 'rgb(58, 58, 60)'
+
+export const generateMessage = arr => {
+  const len = arr.length
+  var message = `Marvdle ${len}/6`
+  message += "\n"
+  for (var i = 0; i < len; i++) {
+    var row = arr[i]
+    for (var j = 0; j < 5; j++) {
+      if (row[j] === grey_color) {
+        message += BLACK
+      } else if (row[j] === yellow_color) {
+        message += YELLOW
+      } else {
+        message += GREEN
+      }
+    }
+    message += "\n"
+  }
+  return message
+}
