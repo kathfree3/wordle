@@ -2,6 +2,8 @@ import Block from './Block'
 import { LineWrapper } from '../helper.js'
 
 const CurrentLine = ({ value }) => {
+
+  // update it if its not a full value?
   var word = value
   if (value.length < 5) {
     const needed = 5 - value.length

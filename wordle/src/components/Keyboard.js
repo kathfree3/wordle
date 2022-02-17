@@ -9,12 +9,8 @@ const Keyboard = () => {
 
   // dispatch key events
   const dispatch = l => {
-    window.dispatchEvent(new KeyboardEvent('keydown', {
-      'key': l
-    }));
-    window.dispatchEvent(new KeyboardEvent('keyup', {
-      'key': l
-    }));
+    window.dispatchEvent(new KeyboardEvent('keydown', { 'key': l }));
+    window.dispatchEvent(new KeyboardEvent('keyup', { 'key': l }));
   }
   
   // button handlers
@@ -24,42 +20,32 @@ const Keyboard = () => {
 
   return (
     <KeyboardWrapper className='keyboard'>
-      <KeyRow className='keyrow'>
+      <Row className='keyrow'>
         {row0.map(c => 
-          <Button key={c} id={`keyX${c.toUpperCase()}`}onClick={() => letterClicked(c)}>
-            {c.toUpperCase()}
-          </Button>
+          <Key key={c} id={`keyX${c.toUpperCase()}`} onClick={() => letterClicked(c)}> {c.toUpperCase()} </Key>
         )}
-      </KeyRow>
-      <KeyRow className='keyrow'>
+      </Row>
+      <Row className='keyrow'>
         <Space />
         {row1.map(c => 
-          <Button key={c} id={`keyX${c.toUpperCase()}`}onClick={() => letterClicked(c)}>
-            {c.toUpperCase()}
-          </Button>
+          <Key key={c} id={`keyX${c.toUpperCase()}`}onClick={() => letterClicked(c)}> {c.toUpperCase()} </Key>
         )}
         <Space />
-      </KeyRow>
-      <KeyRow className='keyrow'>
-        <SpecialButton key='keyXEnter' id='keyXEnter' onClick={() => enterClicked()}>
-          ENTER
-        </SpecialButton>
+      </Row>
+      <Row className='keyrow'>
+        <SpecialKey key='keyXEnter' id='keyXEnter' onClick={() => enterClicked()}> ENTER </SpecialKey>
         {row2.map(c => 
-          <Button key={c} id={`keyX${c.toUpperCase()}`} onClick={() => letterClicked(c)}>
-            {c.toUpperCase()}
-          </Button>
+          <Key key={c} id={`keyX${c.toUpperCase()}`} onClick={() => letterClicked(c)}> {c.toUpperCase()} </Key>
         )}
-        <SpecialButton key='keyXDel' id='keyXDel' onClick={() => deleteClicked()}>
-          DEL
-        </SpecialButton>
-      </KeyRow>
+        <SpecialKey key='keyXDel' id='keyXDel' onClick={() => deleteClicked()}> DEL</SpecialKey>
+      </Row>
     </KeyboardWrapper>
   )
 }
 
 export default Keyboard
 
-const Button = s.button`
+const Key = s.button`
   background-color: #818384 !important;
   font-weight: bold;
   color: white;
@@ -75,7 +61,7 @@ const Button = s.button`
   align-items: center;
 `
 
-const SpecialButton = s(Button)`
+const SpecialKey = s(Key)`
   flex: 1.5;
 `
 const KeyboardWrapper = s.div`
@@ -84,7 +70,7 @@ const KeyboardWrapper = s.div`
   margin: 3rem;
 `
 
-const KeyRow = s.div`
+const Row = s.div`
   display: flex;
   width: 100%;
   margin: 0 auto 8px;

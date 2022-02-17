@@ -15,7 +15,15 @@ const App = () => {
     const lastSolved = localStorage.getItem('solvedToday')
     const today = new Date().setHours(0,0,0,0);
     if (lastSolved > today) {
+      const lastAnswer = localStorage.getItem('lastSolvedAnswer')
+      setAnswer(lastAnswer)
       setAllowed(false)
+    } else {
+      // reset stored guesses
+      localStorage.setItem(`lastSolvedAnswer`, "");
+      for (var i = 0; i < 6; i++) {
+        localStorage.setItem(`guess${i}`, "")
+      }
     }
   }, []);
 

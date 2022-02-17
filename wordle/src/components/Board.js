@@ -1,33 +1,30 @@
-
-import s from 'styled-components'
+// package imports
 import { useEffect, useState } from "react"
-
+import s from 'styled-components'
+// component imports
 import GuessedLine from './Guessed/GuessedLine'
 import EmptyLine from './Empty/EmptyLine'
 import CurrentLine from './CurrentLine'
-
+import Keyboard from './Keyboard'
 import GameOver from './GameOver'
-
+// helper imports
 import { validGuess } from '../helper.js'
 
-import Keyboard from './Keyboard'
 
 const Board = ({ answer, allowedToSolve }) => {
   // current line number
   const [lineNum, setLineNum] = useState(0)
+  // is the game over?
   const [gameOver, setGameOver] = useState(false)
-
   // current value of what you are guessing
   const [value, setValue] = useState('')
-
+  // line states
   const [lineZero, setLineZero] = useState({ guessed: false, guess: '' })
   const [lineOne, setLineOne] = useState({ guessed: false, guess: '' })
   const [lineTwo, setLineTwo] = useState({ guessed: false, guess: '' })
   const [lineThree, setLineThree] = useState({ guessed: false, guess: '' })
   const [lineFour, setLineFour] = useState({ guessed: false, guess: '' })
   const [lineFive, setLineFive] = useState({ guessed: false, guess: '' })
-
-
   // arrays for line info
   const lines = [lineZero, lineOne, lineTwo, lineThree, lineFour, lineFive]
   const setLines = [setLineZero, setLineOne, setLineTwo, setLineThree, setLineFour, setLineFive]
@@ -42,14 +39,19 @@ const Board = ({ answer, allowedToSolve }) => {
         enterPressed()
       } else {
         if (key.length === 1 && /^[a-zA-Z]+$/.test(key)) {
-          setValue(prevUserText => addLetter(prevUserText, key.toUpperCase()))
+          setValue(prev => prev.length !== 5 ? prev + key.toUpperCase() : prev)
         }
       }
     }
   }
 
-  // helper for adding a letter to a word
-  const addLetter = (curr, newKey) => curr.length !== 5 ? curr + newKey : curr
+
+  const endGame = () => {
+    setGameOver(true)
+    localStorage.setItem(`lastSolvedAnswer`, answer);
+    localStorage.setItem('solvedToday', Date.now());
+    document.removeEventListener("keydown", handleUserKeyPress);
+  }
 
   const enterPressed = () => {
     if (value.length === 5) {
@@ -57,17 +59,13 @@ const Board = ({ answer, allowedToSolve }) => {
       if (validGuess(value)) {
         const newMap = {guessed: true, guess:value}
         setLines[lineNum](newMap)
+        // update storage
+        localStorage.setItem(`guess${lineNum}`, value);
         setLineNum(lineNum + 1)
         setValue('')
         // now check if that was the right answer
-        if (value === answer) {
-          setGameOver(true)
-          document.removeEventListener("keydown", handleUserKeyPress);
-        }
-          //clean up
-        if (lineNum === 5) {
-          setGameOver(true)
-          window.removeEventListener("keydown", handleUserKeyPress);
+        if (value === answer || lineNum === 5) {
+          endGame()
         }
       } else {
         $("#mydiv").fadeIn("slow");
@@ -82,16 +80,15 @@ const Board = ({ answer, allowedToSolve }) => {
 
 
   useEffect(() => {
+    setGameOver(!allowedToSolve)
     // hide it at first
     $('#mydiv').hide(); 
     window.addEventListener("keydown", handleUserKeyPress);
-    return () => {
-        window.removeEventListener("keydown", handleUserKeyPress);
-    };
+    return () => window.removeEventListener("keydown", handleUserKeyPress)
   }, [handleUserKeyPress]);
 
 
-  const displayLines =  lines.map(({guessed, guess}, i) => {
+  const displayCurrentGame =  lines.map(({guessed, guess}, i) => {
     // line that we don't need to worry about
     if (i > lineNum) {
       return ( <EmptyLine key={i}/> )
@@ -106,17 +103,26 @@ const Board = ({ answer, allowedToSolve }) => {
     }
   })
 
+  const nums = [0, 1, 2, 3, 4, 5]
+  const displayPlayedGame = nums.map(i => {
+    const theGuess = localStorage.getItem(`guess${i}`)
+    if (theGuess !== "") {
+      return (<GuessedLine key={i} guess={theGuess} correctWord={answer} />)
+    } else {
+      return ( <EmptyLine key={i}/> )
+    }
+  })
+
   return (
     <>
       <Wrapper>
         <p id='mydiv'> Sorry, that word is not in our list!</p>
       </Wrapper>
       <BoardWrapper className="board">
-        {displayLines}
+        {allowedToSolve ? displayCurrentGame : displayPlayedGame}
       </BoardWrapper>
       {!gameOver && <Keyboard />}
-      {(!allowedToSolve || gameOver) && <GameOver lineNum={lineNum} answer={answer}/>}
-
+      <GameOver lineNum={lineNum} answer={answer} gameOver={gameOver} />
     </>
   )
 }

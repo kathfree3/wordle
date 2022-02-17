@@ -4,27 +4,30 @@ import s from 'styled-components'
 
 import { generateMessage } from '../helper'
 
-const GameOver = ({ answer, lineNum }) => {
+const GameOver = ({ gameOver, answer, lineNum }) => {
   
   //backdrop="static"
   useEffect(() => {
     $('#sharedMessage').hide(); 
-    localStorage.setItem('solvedToday', Date.now());
   });
 
   const link= `https://www.marvel.com/search?limit=20&query=${answer}&offset=0`
 
   return (
-    <Wrapper>
-      SOLUTION:
-      <p>
-        <Link href={link} target="_blank"> {answer} </Link>
-      </p>
-      <ReadDef href={link} target="_blank"> (read definition here) </ReadDef>
-      <br />
-      <button onClick={() => click(lineNum)}> Share results</button>
-      <p id="sharedMessage"> results copied to clipboard </p>
-    </Wrapper>
+    <>
+      {gameOver ? (
+        <Wrapper>
+          SOLUTION:
+          <p> <Link href={link} target="_blank"> {answer} </Link> </p>
+          <ReadDef href={link} target="_blank"> (read definition here) </ReadDef>
+          <br />
+          <button onClick={() => click(lineNum)}> Share results</button>
+          <p id="sharedMessage"> results copied to clipboard </p>
+        </Wrapper>
+      ) : (
+        <> </>
+      )}
+    </>
   )
 }
 
@@ -44,9 +47,7 @@ const click = lineWonOn => {
   }
   navigator.clipboard.writeText(generateMessage(arr))
   $("#sharedMessage").fadeIn("slow");
-  setTimeout(() => {
-    $('#sharedMessage').fadeOut('slow');
-  }, 1400);
+  setTimeout(() => $('#sharedMessage').fadeOut('slow'), 1400);
 }
 
 const Wrapper = s.div`

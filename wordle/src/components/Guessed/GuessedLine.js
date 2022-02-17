@@ -36,7 +36,6 @@ const GuessedLine = ({ guess, correctWord }) => {
 
   const blocks = mapWord(guess, correctWord)
 
-
   return (
     <LineWrapper>
       {blocks}

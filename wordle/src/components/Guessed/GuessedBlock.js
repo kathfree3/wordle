@@ -15,13 +15,12 @@ const GuessedBlock = ({
   });
 
 
+  // doesn't work if answer is druig and guess is rower
   const figureOutColor = (guessLetter, guessWord, ind, correctInds, answer) => {
-    if (correctInds.includes(index)) {
-      // guess is in correct spot
+    if (correctInds.includes(index)) { // guess is in correct spot
       $(`#keyX${guessLetter}`).removeClass('yellowKey').addClass('correctKey')
       return COLORS.green
-    } else if (!answer.includes(guessLetter)) {
-      // the guessed letter is NOT in the word
+    } else if (!answer.includes(guessLetter)) { // the guessed letter is NOT in the word
       $(`#keyX${guessLetter}`).addClass('wrongKey')
       return COLORS.grey
     } else { // the guessed letter is in the word
