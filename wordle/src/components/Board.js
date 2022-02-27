@@ -121,7 +121,7 @@ const Board = ({ answer, allowedToSolve }) => {
       <BoardWrapper className="board">
         {allowedToSolve ? displayCurrentGame : displayPlayedGame}
       </BoardWrapper>
-      {!gameOver && <Keyboard />}
+      <Keyboard />
       <GameOver lineNum={lineNum} answer={answer} gameOver={gameOver} />
     </>
   )

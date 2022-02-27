@@ -1,34 +1,58 @@
 import s from 'styled-components'
 import GuessedBlock from './GuessedBlock'
 
-import { LineWrapper } from '../../helper.js'
+import { LineWrapper, COLORS } from '../../helper.js'
 
 
+const { yellow, grey, green, red } = COLORS
 
 const GuessedLine = ({ guess, correctWord }) => {
 
-  const getCorrectInds = (g, c) => {
-    var correct = []
-    for (var i = 0; i < 5; i++) {
-      if (g.charAt(i) === c.charAt(i)){
-        correct.push(i)
+
+  const setColors = (g, c) => {
+    const colors = [undefined, undefined, undefined, undefined, undefined]
+    const guessArr = g.split("")
+    const answerArr = c.split("")
+    for (var i = 0; i < guessArr.length; i++) {
+      const ch = g.charAt(i)
+      if (c.charAt(i) === ch) {
+        colors[i] = green
+        // change this to be a ? now 
+        guessArr[i] = undefined
+        answerArr[i]= undefined
+      } else if (!c.includes(ch)) {
+        colors[i] = grey
+        guessArr[i] = undefined
       }
     }
-    return correct
+    console.log(answerArr)
+    console.log(colors)
+    // now the letters you have left are either yellow or grey
+    for (var i = 0; i < g.length; i++) {
+      if (typeof (colors[i]) === 'undefined') {
+        const ch = guessArr[i]
+        if (answerArr.includes(ch)) {
+          colors[i] = yellow
+          const index = answerArr.indexOf(ch)
+          answerArr[index]= "?"
+        } else {
+          colors[i] = grey
+        }
+      }
+    }
+    return colors
   }
 
   const mapWord = (g, c) => {
     var blocks = []
-    const correctInds = getCorrectInds(g,c)
+    const colors = setColors(g, c) 
+    console.log(c)
     for (var i = 0; i < g.length; i++) {
       blocks.push(
       <GuessedBlock 
         key={i}
         letter={g.charAt(i)}
-        guess={g}
-        correctWord={c}
-        index={i}
-        correctInds={correctInds}
+        color={colors[i]}
       />)
     }
     return blocks
