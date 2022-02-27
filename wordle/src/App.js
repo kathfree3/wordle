@@ -1,10 +1,13 @@
+import { useEffect, useState } from "react"
+import s from 'styled-components'
 
+// local imports 
 import Header from "./components/TopBar/Header"
 import Board from "./components/Board"
-import { useEffect, useState } from "react"
 
-import s from 'styled-components'
+// functions
 import { generateWord } from './helper'
+import { resetGuesses, getLastSolved, getLastSolvedAnswer } from './storage'
 
 const App = () => {
   const [answer, setAnswer] = useState('xxxx')
@@ -12,18 +15,14 @@ const App = () => {
 
   useEffect(() => {
     setAnswer(generateWord())
-    const lastSolved = localStorage.getItem('solvedToday')
+    const lastSolved = getLastSolved()
     const today = new Date().setHours(0,0,0,0);
     if (lastSolved > today) {
-      const lastAnswer = localStorage.getItem('lastSolvedAnswer')
+      const lastAnswer = getLastSolvedAnswer()
       setAnswer(lastAnswer)
       setAllowed(false)
-    } else {
-      // reset stored guesses
-      localStorage.setItem(`lastSolvedAnswer`, "");
-      for (var i = 0; i < 6; i++) {
-        localStorage.setItem(`guess${i}`, "")
-      }
+    } else { // reset stored guesses
+      resetGuesses()
     }
   }, []);
 

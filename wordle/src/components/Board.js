@@ -1,6 +1,7 @@
 // package imports
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import s from 'styled-components'
+
 // component imports
 import GuessedLine from './Guessed/GuessedLine'
 import EmptyLine from './Empty/EmptyLine'
@@ -9,12 +10,12 @@ import Keyboard from './Keyboard'
 import GameOver from './GameOver'
 // helper imports
 import { validGuess } from '../helper.js'
+import { triggerGameOver, setGuess, getGuess} from '../storage.js'
 
 
 const Board = ({ answer, allowedToSolve }) => {
   // current line number
   const [lineNum, setLineNum] = useState(0)
-  // is the game over?
   const [gameOver, setGameOver] = useState(false)
   // current value of what you are guessing
   const [value, setValue] = useState('')
@@ -28,6 +29,7 @@ const Board = ({ answer, allowedToSolve }) => {
   // arrays for line info
   const lines = [lineZero, lineOne, lineTwo, lineThree, lineFour, lineFive]
   const setLines = [setLineZero, setLineOne, setLineTwo, setLineThree, setLineFour, setLineFive]
+
 
   // event handlre for key pressed
   const handleUserKeyPress = event => {
@@ -48,19 +50,17 @@ const Board = ({ answer, allowedToSolve }) => {
 
   const endGame = () => {
     setGameOver(true)
-    localStorage.setItem(`lastSolvedAnswer`, answer);
-    localStorage.setItem('solvedToday', Date.now());
-    document.removeEventListener("keydown", handleUserKeyPress);
+    triggerGameOver(answer, handleUserKeyPress)
   }
 
   const enterPressed = () => {
     if (value.length === 5) {
       // check if valid
       if (validGuess(value)) {
-        const newMap = {guessed: true, guess:value}
+        const newMap = {guessed: true, guess: value}
         setLines[lineNum](newMap)
         // update storage
-        localStorage.setItem(`guess${lineNum}`, value);
+        setGuess(lineNum, value)
         setLineNum(lineNum + 1)
         setValue('')
         // now check if that was the right answer
@@ -80,13 +80,16 @@ const Board = ({ answer, allowedToSolve }) => {
 
 
   useEffect(() => {
-    setGameOver(!allowedToSolve)
     // hide it at first
     $('#mydiv').hide(); 
     window.addEventListener("keydown", handleUserKeyPress);
     return () => window.removeEventListener("keydown", handleUserKeyPress)
   }, [handleUserKeyPress]);
 
+  // update when the input changes
+  useEffect(() => {
+    setGameOver(!allowedToSolve)
+  }, [allowedToSolve]);
 
   const displayCurrentGame =  lines.map(({guessed, guess}, i) => {
     // line that we don't need to worry about
@@ -105,7 +108,7 @@ const Board = ({ answer, allowedToSolve }) => {
 
   const nums = [0, 1, 2, 3, 4, 5]
   const displayPlayedGame = nums.map(i => {
-    const theGuess = localStorage.getItem(`guess${i}`)
+    const theGuess = getGuess(i)
     if (theGuess !== "") {
       return (<GuessedLine key={i} guess={theGuess} correctWord={answer} />)
     } else {

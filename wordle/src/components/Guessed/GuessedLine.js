@@ -25,8 +25,7 @@ const GuessedLine = ({ guess, correctWord }) => {
         guessArr[i] = undefined
       }
     }
-    console.log(answerArr)
-    console.log(colors)
+
     // now the letters you have left are either yellow or grey
     for (var i = 0; i < g.length; i++) {
       if (typeof (colors[i]) === 'undefined') {
@@ -46,7 +45,6 @@ const GuessedLine = ({ guess, correctWord }) => {
   const mapWord = (g, c) => {
     var blocks = []
     const colors = setColors(g, c) 
-    console.log(c)
     for (var i = 0; i < g.length; i++) {
       blocks.push(
       <GuessedBlock 

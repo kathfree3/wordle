@@ -48,7 +48,7 @@ const HowToPlay = () => {
 
         <hr />
       
-        A new LEWDLE will be available each day!
+        If these instructions aren't good enough look how to play wordle idk.
         </Modal.Body>
       </Modal>
     </>
